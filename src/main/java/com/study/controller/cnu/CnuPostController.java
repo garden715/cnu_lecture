@@ -19,20 +19,43 @@ import java.util.List;
 @Controller
 @RequestMapping("/post")
 public class CnuPostController {
-    @Value("${application.security.salt}") private String securityKey;
+	@Value("${application.security.salt}")
+	private String securityKey;
 
-    @RequestMapping("")
-    public String index() {
-        return "post/index";
-    }
+	@Autowired
+	CnuRepository cnuRepository;
 
-    @RequestMapping("/write")
-    public String write() {
-        return "post/write";
-    }
+	@RequestMapping("")
+	public String index(Model model) {
+		List<CnuPost> cnuPostList = cnuRepository.selectCnuPostList();
 
-    @RequestMapping("/view")
-    public String view() {
-        return "post/view";
-    }
+		model.addAttribute("cnuPostList", cnuPostList);
+
+		return "post/index";
+	}
+
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String write() {
+		return "post/write";
+	}
+
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String doWrite(String title, String content, String author, String password) {
+
+		CnuPost cnuPost = new CnuPost();
+
+		cnuPost.setTitle(title);
+		cnuPost.setContent(content);
+		cnuPost.setAuthor(author);
+		cnuPost.setPassword(password);
+
+		cnuRepository.insertCnuPost(cnuPost);
+
+		return "redirect:/post/write";
+	}
+
+	@RequestMapping("/view")
+	public String view() {
+		return "post/view";
+	}
 }
