@@ -14,6 +14,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/tutorial")
 public class TutorialController {
+<<<<<<< HEAD
 
     @RequestMapping("/step1")
     public ModelAndView step1() {
@@ -45,4 +46,35 @@ public class TutorialController {
         return "/tutorial/step1";
     }
 
+=======
+	
+	@RequestMapping("/step1")
+	public ModelAndView step1() {
+		ModelAndView mav = new ModelAndView();
+		
+		Map<String, Object> model = mav.getModel();
+		model.put("name", "jungwon");
+		mav.setViewName("/tutorial/step1");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/step2")
+	public ModelAndView step2(@RequestParam(required = false) String name) {
+		ModelAndView mav = new ModelAndView();
+		
+		Map<String, Object> model = mav.getModel();
+		model.put("name", name);
+		mav.setViewName("/tutorial/step1");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/step3")
+	public String step3(@RequestParam(required = false) String name, Model model) {
+		model.addAttribute("name", name);
+		
+		return "/tutorial/step1";
+	}
+>>>>>>> 6d180338f8f030306cde0d648a447a55050d492b
 }
