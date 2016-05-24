@@ -21,6 +21,7 @@ public interface CnuRepository {
 
 	CnuPost selectCnuPost(int postId);
 
+
 	int updateCnuBoard(CnuPost obj);
 
 	int deleteCnuBoard(int postId, String password);

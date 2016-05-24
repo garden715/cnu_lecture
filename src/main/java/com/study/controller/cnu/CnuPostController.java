@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/post")
 public class CnuPostController {
+<<<<<<< HEAD
     @Value("${application.security.salt}")
     private String securityKey;
 
